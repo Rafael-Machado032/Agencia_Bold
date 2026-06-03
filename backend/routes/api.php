@@ -11,7 +11,7 @@ use App\Http\Controllers\MensagemController;
 
 /*
 |--------------------------------------------------------------------------
-| Rotas Públicas (Site / Visitante)
+| Rotas Públicas (Site / Visitante) teste
 |--------------------------------------------------------------------------
 */
 
