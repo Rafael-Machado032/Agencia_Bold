@@ -1,0 +1,45 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Backend (Laravel)", // Nome da tarefa
+            "type": "shell", // Tipo de tarefa (executa um comando no terminal)
+            "command": "php artisan serve", // Comando para iniciar o servidor Laravel
+            "options": {
+                "cwd": "${workspaceFolder}/1.Argencia/backend" // Define o diretório de trabalho para o comando
+            },
+            "presentation": {
+                "group": "servidores", // Agrupa esta tarefa com outras tarefas de servidores
+                "reveal": "always", // Sempre revela o terminal quando a tarefa é executada
+                "panel": "dedicated" // Usa um painel dedicado para esta tarefa, evitando misturar com outras tarefas
+            }
+        },
+        {
+            "label": "Frontend (Next.js)",
+            "type": "shell",
+            "command": "npm run dev",
+            "options": {
+                "cwd": "${workspaceFolder}/1.Argencia/frontend"
+            },
+            "presentation": {
+                "group": "servidores",
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "🚀 RODAR TUDO",
+            "dependsOn": [ // Define as tarefas que devem ser executadas quando esta tarefa for iniciada
+                "Backend (Laravel)",
+                "Frontend (Next.js)"
+            ],
+            "group": { // Agrupa esta tarefa como uma tarefa de build, tornando-a a tarefa padrão para execução rápida
+                "kind": "build", // Define o tipo de grupo como "build"
+                "isDefault": true // Define esta tarefa como a tarefa padrão para o grupo "build"
+            },
+            "presentation": {
+                "reveal": "never" // Não revela o terminal para esta tarefa, já que as tarefas dependentes já revelam seus próprios terminais
+            }
+        }
+    ]
+}

@@ -75,7 +75,7 @@ export default async function RootLayout({ children, }: Readonly<{ children: Rea
 
   return (
     <html lang="pt-BR">
-      <body className={`${roboto.variable} ${geistSans.variable} ${geistMono.variable} font-roboto antialiased`}>
+      <body className={`${roboto.variable} ${geistSans.variable} ${geistMono.variable} font-roboto antialiased`} suppressHydrationWarning>
         <LayoutProvedor layoutInicial={layoutInicial.dados}>
           <DepoimentoProvedor depoimentosIniciais={depoimentosIniciais.dados}>
             <Header />
