@@ -6,7 +6,7 @@
             "type": "shell", // Tipo de tarefa (executa um comando no terminal)
             "command": "php artisan serve", // Comando para iniciar o servidor Laravel
             "options": {
-                "cwd": "${workspaceFolder}/1.Argencia/backend" // Define o diretório de trabalho para o comando
+                "cwd": "${workspaceFolder}/backend" // Define o diretório de trabalho para o comando
             },
             "presentation": {
                 "group": "servidores", // Agrupa esta tarefa com outras tarefas de servidores
@@ -19,7 +19,7 @@
             "type": "shell",
             "command": "npm run dev",
             "options": {
-                "cwd": "${workspaceFolder}/1.Argencia/frontend"
+                "cwd": "${workspaceFolder}/frontend"
             },
             "presentation": {
                 "group": "servidores",
