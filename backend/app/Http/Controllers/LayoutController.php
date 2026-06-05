@@ -23,24 +23,18 @@ class LayoutController extends Controller
 
             // 2. LÓGICA DE UPLOAD
             if ($request->hasFile('foto-pc')) {
-                // 🚀 EXCLUIR A FOTO ANTIGA: Se o registro já existe e tem uma foto salva, apaga ela do disco
-                if ($layoutAtual && $layoutAtual->foto_layout) {
-                    Storage::disk('public')->delete($layoutAtual->foto_layout);
+                if ($layoutAtual) {
+                    // 🚀 O SEGREDO: getRawOriginal garante o caminho real ('layouts/foto.jpg') sem o 'http://...' do Accessor
+                    $fotoAntigaPura = $layoutAtual->getRawOriginal('foto_layout');
+
+                    // Verifica se o arquivo antigo realmente existe e deleta ele do disco
+                    if ($fotoAntigaPura && Storage::disk('public')->exists($fotoAntigaPura)) {
+                        Storage::disk('public')->delete($fotoAntigaPura);
+                    }
                 }
-                // 'pasta_destino' é onde o arquivo vai ficar no storage/app/public
                 $caminhoArquivo = $request->file('foto-pc')->store('layouts', 'public');
             }
 
-            // Se quiser usar o nome original do arquivo, pode usar storeAs:
-            // if ($request->hasFile('campo_arquivo')) {
-            //     $file = $request->file('campo_arquivo');
-            //     $nomeOriginal = $file->getClientOriginalName();
-            //     // storeAs garante que use o nome que você passou
-            //     $path = $file->storeAs('pasta_destino', $nomeOriginal, 'public');
-            // }
-
-            // 3. PERSISTÊNCIA (SALVAR NO BANCO)
-            // Mapeie: 'coluna_no_banco' => $dadosValidados['campo_do_form']
             $registro = Layout::updateOrCreate(
                 ['id' => 1], // Condição para encontrar o registro (aqui sempre o ID 1)
                 ['foto_layout' => $caminhoArquivo], // Dados a atualizar ou criar
