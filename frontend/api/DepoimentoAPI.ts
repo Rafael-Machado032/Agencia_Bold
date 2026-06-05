@@ -31,7 +31,7 @@ export async function buscarDepoimentos() {
 
         return {
             success: true,
-            dados: dadosDoBanco
+            dados: dadosDoBanco.data
         };
 
     } catch (error) {
@@ -74,25 +74,22 @@ export async function EditarDepoimento(id: number, formData: FormData) {
     try {
         const headers = await getAuthHeaders();
 
-        // IMPORTANTE: Laravel precisa disso para processar arquivos em PUT
-        formData.append('_method', 'PUT');
-
         const res = await fetch(`${urlBase}/depoimento/${id}`, {
             method: 'POST', // Enviamos como POST + _method PUT
             body: formData,
             headers: headers
         });
 
-        if (!res.ok) return { success: false };
+        
 
         const dadosDoBanco = await res.json();
         console.log("Resposta do servidor Editar Depoimento:", dadosDoBanco);
-
+        if (!res.ok) return { success: false };
         revalidatePath('/admin');
 
         return {
             success: true,
-            dados: dadosDoBanco
+            dados: dadosDoBanco.data
         };
 
     } catch (error) {

@@ -8,84 +8,110 @@ use Illuminate\Support\Facades\Storage;
 
 class DepoimentoController extends Controller
 {
+
+    public function index()
+    {
+        try {
+            // Busca todos os depoimentos, trazendo os mais novos primeiro
+            $depoimentos = Depoimento::orderBy('created_at', 'desc')->get();
+
+            return response()->json([
+                'message' => 'Lista de depoimentos encontrada!',
+                'data' => $depoimentos // 🚀 Mantém o padrão .data que seu Next.js espera ler
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Erro ao buscar os depoimentos.',
+                'details' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
+        }
+    }
     // 1. CRIAR NOVO (SalvarDepoimentoNoServidor)
     public function store(Request $request)
     {
-        $request->validate([
+        $dadosValidados = $request->validate([
             'nome' => 'required|string|max:255',
             'depoimento' => 'required|string',
             'foto-usuario' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $depoimento = new Depoimento();
-        $depoimento->nome = $request->nome;
-        $depoimento->mensagem = $request->depoimento;
+        $caminhoArquivo = null;
 
         if ($request->hasFile('foto-usuario')) {
-            $depoimento->foto_depoimento = $request->file('foto-usuario')->store('depoimentos', 'public');
+            $caminhoArquivo = $request->file('foto-usuario')->store('depoimentos', 'public');
         }
 
-        $depoimento->save();
+        $registro = Depoimento::create([
+            'nome' => $dadosValidados['nome'],
+            'mensagem' => $dadosValidados['depoimento'],
+            'foto_depoimento' => $caminhoArquivo
+        ]);
 
         return response()->json([
-            'success' => true,
             'message' => 'Depoimento criado com sucesso!',
-            'data' => $depoimento
+            'data' => $registro
         ]);
     }
 
     // 2. ATUALIZAR EXISTENTE (EditarDepoimentoNoServidor)
     // O Laravel injeta o $id automaticamente da URL /depoimento/{id}
-    public function update(Request $request, int $id)
+    public function update(Request $request, Depoimento $depoimento)
     {
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'depoimento' => 'required|string',
-            'foto-usuario' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+        try {
+            $dadosValidados = $request->validate([
+                'nome' => 'required|string|max:255',
+                'depoimento' => 'required|string',
+                'foto-usuario' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // 🚀 Mudado para nullable (opcional no update)
+            ]);
 
-        $depoimento = Depoimento::findOrFail($id);
-        $depoimento->nome = $request->nome;
-        $depoimento->mensagem = $request->depoimento;
+            // Mantém a foto atual caso o usuário não envie uma nova
+            $caminhoArquivo = $depoimento->getRawOriginal('foto_depoimento');
 
-        if ($request->hasFile('foto-usuario')) {
-            // Deleta a foto antiga para não acumular lixo no servidor
-            if ($depoimento->foto_depoimento) {
-                Storage::disk('public')->delete($depoimento->foto_depoimento);
+            // Se uma nova foto foi enviada no formulário
+            if ($request->hasFile('foto-usuario')) {
+                // 1. Apaga a foto antiga fisicamente do disco
+                if ($caminhoArquivo && Storage::disk('public')->exists($caminhoArquivo)) {
+                    Storage::disk('public')->delete($caminhoArquivo);
+                }
+                // 2. Salva a foto nova na pasta
+                $caminhoArquivo = $request->file('foto-usuario')->store('depoimentos', 'public');
             }
-            $depoimento->foto_depoimento = $request->file('foto-usuario')->store('depoimentos', 'public');
+
+            // 🚀 CORREÇÃO CRUCIAL: Chama o update diretamente na instância ($depoimento)
+            $depoimento->update([
+                'nome' => $dadosValidados['nome'],
+                'mensagem' => $dadosValidados['depoimento'],
+                'foto_depoimento' => $caminhoArquivo // Salva a nova ou mantém a antiga automaticamente
+            ]);
+
+            return response()->json([
+                'message' => 'Depoimento atualizado com sucesso!',
+                'data' => $depoimento // Retorna o próprio objeto atualizado
+            ], 200); // Status 200 porque é uma atualização de sucesso
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Erro ao atualizar o depoimento.',
+                'details' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
         }
-
-        $depoimento->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Depoimento atualizado com sucesso!',
-            'data' => $depoimento
-        ]);
     }
 
-    // 3. DELETAR (DeletarDepoimentoNoServidor)
-    public function destroy(int $id)
-    {
-        $depoimento = Depoimento::findOrFail($id);
 
-        // Deleta o arquivo físico da foto antes de apagar o registro
-        if ($depoimento->foto_depoimento) {
-            Storage::disk('public')->delete($depoimento->foto_depoimento);
+    // 3. DELETAR (DeletarDepoimentoNoServidor)
+    public function destroy(Depoimento $depoimento)
+    {
+        $caminhoArquivo = $depoimento->getRawOriginal('foto_depoimento');
+
+        if ($caminhoArquivo && Storage::disk('public')->exists($caminhoArquivo)) {
+            Storage::disk('public')->delete($caminhoArquivo);
         }
 
         $depoimento->delete();
 
         return response()->json([
-            'success' => true,
             'message' => 'Depoimento deletado com sucesso!'
         ]);
     }
-
-    public function show()
-    {
-        // Retorna todos os depoimentos (pode usar orderBy para os mais recentes virem primeiro)
-        return response()->json(Depoimento::orderBy('created_at', 'desc')->get());
-    }
+   
 }

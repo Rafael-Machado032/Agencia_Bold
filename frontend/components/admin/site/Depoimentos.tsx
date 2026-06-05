@@ -26,6 +26,7 @@ export default function Depoimentos() {
             const sucesso = await DeletarDepoimento(id);
             if (sucesso) {
                 setDepoimentoDados(depoimentoDados.filter(d => d.id !== id));
+                alert("Deletado com sucesso!");
             } else {
                 alert("Erro ao deletar.");
             }
@@ -60,19 +61,21 @@ export default function Depoimentos() {
         if (idEditando) {
             // LÓGICA DE ATUALIZAR
             const resultado = await EditarDepoimento(idEditando, formData);
+            console.log("Resultado da edição:", resultado);
             if (resultado?.success) {
                 setDepoimentoDados(depoimentoDados.map(d => d.id === idEditando ? resultado.dados : d));
-                alert("Atualizado!");
+                alert("Atualizado com sucesso!");
                 cancelarEdicao();
             }
         } else {
             // LÓGICA DE CRIAR NOVO
             const resultado = await SalvarDepoimento(formData);
+            console.log("Resultado da criação:", resultado);
             if (resultado?.success) {
                 setDepoimentoDados([...depoimentoDados, resultado.dados]);
                 formRef.current?.reset();
                 setPreviewDepoimento(null);
-                alert("Salvo!");
+                alert("Publicado com sucesso!");
             }
         }
     };

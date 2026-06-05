@@ -23,7 +23,7 @@ Route::get('/login', function () {
 
 Route::get('/layout/{layout}', [LayoutController::class, 'show']);
 
-Route::get('/depoimentos', [DepoimentoController::class, 'show']);
+Route::get('/depoimentos', [DepoimentoController::class, 'index']);
 
 Route::post('/contato', [MensagemController::class, 'store']);
 
@@ -54,8 +54,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::match(['post', 'put'], '/usuario', [UsuarioController::class, 'update']);
     
     Route::post('/depoimento', [DepoimentoController::class, 'store']);
-    Route::post('/depoimento/{id}', [DepoimentoController::class, 'update']); // Tem que ter o {id}
-    Route::delete('/depoimento/{id}', [DepoimentoController::class, 'destroy']); // Tem que ter o {id}
+    Route::post('/depoimento/{depoimento}', [DepoimentoController::class, 'update']); // Tem que ter o {id}
+    Route::delete('/depoimento/{depoimento}', [DepoimentoController::class, 'destroy']); // Tem que ter o {id}
 
     Route::get('/mensagens', [MensagemController::class, 'index']); // Listar mensagens (só para admin)
     Route::delete('/mensagens/{id}', [MensagemController::class, 'destroy']);
