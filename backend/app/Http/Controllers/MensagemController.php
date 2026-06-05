@@ -9,12 +9,9 @@ class MensagemController extends Controller
 {
     // App\Http\Controllers\MensagemController.php
 
-    public function marcarComoLida($id)
+    public function marcarComoLida(Mensagem $mensagem)
     {
         try {
-            // Busca a mensagem ou retorna 404 se não existir
-            $mensagem = Mensagem::findOrFail($id);
-
             // Atualiza a coluna 'lida' para true (1)
             $mensagem->update(['lida' => true]);
 
@@ -64,9 +61,8 @@ class MensagemController extends Controller
         ]);
     }
 
-    public function destroy($id)
+    public function destroy(Mensagem $mensagem)
     {
-        $mensagem = Mensagem::findOrFail($id); // Se não achar, dá erro 404
         $mensagem->delete();
         return response()->json([
             'success' => true,

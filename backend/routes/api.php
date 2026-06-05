@@ -55,6 +55,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/depoimento/{depoimento}', [DepoimentoController::class, 'destroy']); 
 
     Route::get('/mensagens', [MensagemController::class, 'index']); 
-    Route::delete('/mensagens/{id}', [MensagemController::class, 'destroy']);
-    Route::patch('/mensagens/{id}/lida', [MensagemController::class, 'marcarComoLida']);
+    Route::delete('/mensagens/{mensagem}', [MensagemController::class, 'destroy']);
+    Route::patch('/mensagens/{mensagem}/lida', [MensagemController::class, 'marcarComoLida']);
 });
