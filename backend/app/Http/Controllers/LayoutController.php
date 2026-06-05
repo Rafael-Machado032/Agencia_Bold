@@ -8,54 +8,68 @@ use Illuminate\Support\Facades\Storage;
 
 class LayoutController extends Controller
 {
-    public function update(Request $request, $id)
+    public function store(Request $request)
     {
-        // 1. Validação (Sempre importante!)
-        try {
+        // 1. REGRAS DE VALIDAÇÃO
+        try { // Troque as chaves pelos nomes dos campos do seu formulário/frontend
             $request->validate([
                 'foto-pc' => 'required|image|max:5000', // 'foto-pc' é o name do seu input no Next
             ]);
- 
 
-        // 2. Busca o Layout pelo ID (no seu caso, passamos o ID 1)
-        // Se não existir, o findOrFail já retorna um erro 404 sozinho
-        $layout = Layout::findOrFail($id);
+            // 1. BUSCA O REGISTRO ATUAL NO BANCO (Se existir)
+            $layoutAtual = Layout::find(1);
 
-        // 3. Se enviou um arquivo novo...
-        if ($request->hasFile('foto-pc')) {
+            $caminhoArquivo = null;
 
-            // Deleta a foto anterior do HD se ela existir
-            if ($layout->foto_layout) {
-                Storage::disk('public')->delete($layout->foto_layout);
+            // 2. LÓGICA DE UPLOAD
+            if ($request->hasFile('foto-pc')) {
+                // 🚀 EXCLUIR A FOTO ANTIGA: Se o registro já existe e tem uma foto salva, apaga ela do disco
+                if ($layoutAtual && $layoutAtual->foto_layout) {
+                    Storage::disk('public')->delete($layoutAtual->foto_layout);
+                }
+                // 'pasta_destino' é onde o arquivo vai ficar no storage/app/public
+                $caminhoArquivo = $request->file('foto-pc')->store('layouts', 'public');
             }
 
-            // Salva a nova na pasta 'layouts' dentro do storage
-            $caminho = $request->file('foto-pc')->store('layouts', 'public');
+            // Se quiser usar o nome original do arquivo, pode usar storeAs:
+            // if ($request->hasFile('campo_arquivo')) {
+            //     $file = $request->file('campo_arquivo');
+            //     $nomeOriginal = $file->getClientOriginalName();
+            //     // storeAs garante que use o nome que você passou
+            //     $path = $file->storeAs('pasta_destino', $nomeOriginal, 'public');
+            // }
 
-            // Atualiza o caminho no objeto
-            $layout->foto_layout = $caminho;
-        }
+            // 3. PERSISTÊNCIA (SALVAR NO BANCO)
+            // Mapeie: 'coluna_no_banco' => $dadosValidados['campo_do_form']
+            $registro = Layout::updateOrCreate(
+                ['id' => 1], // Condição para encontrar o registro (aqui sempre o ID 1)
+                ['foto_layout' => $caminhoArquivo], // Dados a atualizar ou criar
+            );
 
-        // 4. Grava no Banco de Dados
-        $layout->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Layout atualizado com sucesso!',
-            'data' => $layout // Aqui o Next.js já recebe o 'foto_layout' graças ao Accessor e ao $appends
-            ]);
-        } catch (\Exception $e) {
             return response()->json([
-                'error'   => 'Erro ao atualizar o Layout.',
-                'details' => $e->getMessage()
+                'message' => 'Criado com sucesso!',
+                'data'    => $registro // Não esquesa que de usar .dados para pegar as irfomações do item criado
+            ], 201);
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'error'   => 'Erro interno no servidor.',
+                'details' => config('app.debug') ? $e->getMessage() : null
             ], 500);
         }
     }
-    public function show($id)
+    public function show(Layout $layout)
     {
-        $layout = Layout::findOrFail($id);
-        return response()->json([
-            'data' => $layout
-        ]);
+        try {
+            return response()->json([
+                'message' => 'Item encontrado!',
+                'data' => $layout
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Erro ao mostrar o projeto.',
+                'details' => $e->getMessage()
+            ], 500);
+        }
     }
 }

@@ -21,8 +21,10 @@ Route::get('/login', function () {
     return response()->json(['message' => 'Não autorizado'], 401);
 })->name('login');
 
-Route::get('/layout/{id}', [LayoutController::class, 'show']);
+Route::get('/layout/{layout}', [LayoutController::class, 'show']);
+
 Route::get('/depoimentos', [DepoimentoController::class, 'show']);
+
 Route::post('/contato', [MensagemController::class, 'store']);
 
 /*
@@ -46,7 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Route::post('/usuario', [UsuarioController::class, 'update']);
     //Route::post('/layout/{id}', [LayoutController::class, 'update']);
     //Route::post('/depoimento', [DepoimentoController::class, 'update']);
-    Route::match(['post', 'put'], '/layout/{id}', [LayoutController::class, 'update']);
+    Route::post('/layout', [LayoutController::class, 'store']);
     
     Route::get('/usuario/{user}', [UsuarioController::class, 'show']);
     Route::match(['post', 'put'], '/usuario', [UsuarioController::class, 'update']);

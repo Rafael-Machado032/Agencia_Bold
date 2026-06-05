@@ -40,11 +40,10 @@ export async function buscarLayout() {
 
 export async function SalvarLayout(formData: FormData) {
     const headers = await getAuthHeaders();
-    formData.append('_method', 'PUT');
     try {
         
         // O Next.js envia o pacote completo (nome + arquivo) para o Laravel
-        const res = await fetch(`${urlBase}/layout/1`, {
+        const res = await fetch(`${urlBase}/layout`, {
             method: 'POST',
             body: formData, // so use o formaData se for carregar imagem
             headers: headers

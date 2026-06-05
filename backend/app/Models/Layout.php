@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Layout extends Model
 {
     // 1. Permite preencher a coluna no banco
-    protected $fillable = ['foto_layout'];
+    protected $fillable = ['id', 'foto_layout'];
 
     protected function fotoLayout(): Attribute //Funcão para arquivos
     {
