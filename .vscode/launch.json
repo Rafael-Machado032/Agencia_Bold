@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Abrir Frontend no Edge",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "cmd", // Usa o terminal do Windows
+            "runtimeArgs": [
+                "/c",
+                "start",
+                "microsoft-edge:http://localhost:3000" // Força abrir no Edge sem dar erro
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }
+    ]
+}
