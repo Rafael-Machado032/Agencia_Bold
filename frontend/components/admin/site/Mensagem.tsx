@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { DeletarMensagem, MarcarMensagemLida } from "@/api//MensagemAPI";
+import { DeletarMensagem, MarcarMensagemLida, buscarMensagens } from "@/api//MensagemAPI";
 import { useMensagem, Mensagem } from "@/contexts/MensagemContext";
 
 
@@ -37,6 +37,11 @@ export default function MensagemPage() {
             }
         }
     };
+    const handleBuscarMensagens = async () => {
+        const mensagemInicial = await buscarMensagens();
+        setMensagemDados(mensagemInicial.dados);
+    }
+
     console.log("Mensagens no contexto:", mensagemDados);
     console.log("Mensagem aberta:", mensagemAberta);
 
@@ -74,7 +79,7 @@ export default function MensagemPage() {
                                 key={msg.id}
                                 onClick={() => handleMensagemLida(msg.id)} // Agora passamos o objeto msg completo
                                 className={`p-4 flex justify-between items-center border rounded-lg cursor-pointer transition-all
-                                    ${mensagemAberta?.id === msg.id ? 'bg-blue-100 border-blue-500 shadow-md scale-[1.02]' : 'bg-white hover:bg-gray-50'}`}
+                                    ${mensagemAberta?.id === msg.id ? 'bg-blue-100 border-blue-500 shadow-md hover:scale-[1.02]' : 'bg-white hover:bg-gray-50 hover:scale-[1.02]'}`}
                             >
                                 <div className="flex-1 min-w-0 pr-4">
                                     <h2 className={`font-bold ${msg.lida ? 'text-gray-500' : 'text-black font-bold'}`}>
@@ -93,7 +98,12 @@ export default function MensagemPage() {
                             </div>
                         ))
                     ) : (
-                        <p className="text-center text-gray-500 mt-10">Caixa de entrada vazia.</p>
+                        <div className="bg-white h-full flex flex-col items-center justify-center text-gray-400 italic rounded-lg gap-4">
+                            <p className="text-center text-gray-500 mt-10">Caixa de entrada vazia.</p>
+                            <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors" onClick={handleBuscarMensagens}>
+                                Buscar Mensagens
+                            </button>
+                        </div>
                     )}
                 </div>
             </div>
