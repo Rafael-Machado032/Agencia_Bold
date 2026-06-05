@@ -35,8 +35,7 @@ Route::post('/contato', [MensagemController::class, 'store']);
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-    // Só quem tem o Token (está logado) consegue entrar aqui
-    // Defina explicitamente o POST para o update antes do resource
+    
     Route::post('/logout', function (Request $request) {
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Token deletado']);
@@ -45,19 +44,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    //Route::post('/usuario', [UsuarioController::class, 'update']);
-    //Route::post('/layout/{id}', [LayoutController::class, 'update']);
-    //Route::post('/depoimento', [DepoimentoController::class, 'update']);
+    
     Route::post('/layout', [LayoutController::class, 'store']);
     
     Route::get('/usuario/{user}', [UsuarioController::class, 'show']);
     Route::match(['post', 'put'], '/usuario', [UsuarioController::class, 'update']);
     
     Route::post('/depoimento', [DepoimentoController::class, 'store']);
-    Route::post('/depoimento/{depoimento}', [DepoimentoController::class, 'update']); // Tem que ter o {id}
-    Route::delete('/depoimento/{depoimento}', [DepoimentoController::class, 'destroy']); // Tem que ter o {id}
+    Route::post('/depoimento/{depoimento}', [DepoimentoController::class, 'update']); 
+    Route::delete('/depoimento/{depoimento}', [DepoimentoController::class, 'destroy']); 
 
-    Route::get('/mensagens', [MensagemController::class, 'index']); // Listar mensagens (só para admin)
+    Route::get('/mensagens', [MensagemController::class, 'index']); 
     Route::delete('/mensagens/{id}', [MensagemController::class, 'destroy']);
     Route::patch('/mensagens/{id}/lida', [MensagemController::class, 'marcarComoLida']);
 });

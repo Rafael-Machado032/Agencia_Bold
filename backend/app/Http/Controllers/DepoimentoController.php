@@ -61,7 +61,7 @@ class DepoimentoController extends Controller
             $dadosValidados = $request->validate([
                 'nome' => 'required|string|max:255',
                 'depoimento' => 'required|string',
-                'foto-usuario' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // 🚀 Mudado para nullable (opcional no update)
+                'foto-usuario' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             ]);
 
             // Mantém a foto atual caso o usuário não envie uma nova
@@ -81,7 +81,7 @@ class DepoimentoController extends Controller
             $depoimento->update([
                 'nome' => $dadosValidados['nome'],
                 'mensagem' => $dadosValidados['depoimento'],
-                'foto_depoimento' => $caminhoArquivo // Salva a nova ou mantém a antiga automaticamente
+                'foto_depoimento' => $caminhoArquivo
             ]);
 
             return response()->json([

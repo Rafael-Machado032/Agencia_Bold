@@ -55,19 +55,28 @@ export default function Depoimentos() {
     const salvarDepoimento = async (formData: FormData) => {
         const nomeInput = formData.get("nome") as string;
         const mensagemInput = formData.get("depoimento") as string;
+        const fotoInput = formData.get("foto-usuario") as File | null;
 
         if (!nomeInput || !mensagemInput) return alert("Preencha os campos.");
 
         if (idEditando) {
             // LÓGICA DE ATUALIZAR
+            // console.log("Foto enviadoa para backend:", fotoInput);
+            if (!fotoInput || fotoInput.size === 0) {
+                formData.delete('foto-usuario'); // Remove o objeto vazio {} para o Laravel pular a validação
+            }
             const resultado = await EditarDepoimento(idEditando, formData);
             console.log("Resultado da edição:", resultado);
             if (resultado?.success) {
                 setDepoimentoDados(depoimentoDados.map(d => d.id === idEditando ? resultado.dados : d));
                 alert("Atualizado com sucesso!");
                 cancelarEdicao();
+            } else {
+                alert("Erro ao atualizar.");
+                cancelarEdicao();
             }
         } else {
+            
             // LÓGICA DE CRIAR NOVO
             const resultado = await SalvarDepoimento(formData);
             console.log("Resultado da criação:", resultado);
@@ -76,6 +85,8 @@ export default function Depoimentos() {
                 formRef.current?.reset();
                 setPreviewDepoimento(null);
                 alert("Publicado com sucesso!");
+            } else {
+                alert("Erro ao publicar.");
             }
         }
     };

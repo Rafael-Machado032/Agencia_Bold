@@ -16,9 +16,9 @@ async function getAuthHeaders() {
 
 export async function buscarDepoimentos() {
     try {
-        
+
         // Removi o "/api" daqui, pois ele já está no urlBase
-        const res = await fetch(`${urlBase}/depoimentos`, { 
+        const res = await fetch(`${urlBase}/depoimentos`, {
             method: 'GET',
             headers: { 'Accept': 'application/json' },
             cache: 'no-store' // Garante dado fresco do Laravel
@@ -51,10 +51,10 @@ export async function SalvarDepoimento(formData: FormData) {
             headers: headers
         });
 
-        if (!res.ok) return { success: false };
-
         const dadosDoBanco = await res.json();
         console.log("Resposta do servidor Salvar Depoimento:", dadosDoBanco);
+
+        if (!res.ok) return { success: false };
 
         revalidatePath('/admin');
 
@@ -73,18 +73,17 @@ export async function SalvarDepoimento(formData: FormData) {
 export async function EditarDepoimento(id: number, formData: FormData) {
     try {
         const headers = await getAuthHeaders();
-
         const res = await fetch(`${urlBase}/depoimento/${id}`, {
-            method: 'POST', // Enviamos como POST + _method PUT
+            method: 'POST',
             body: formData,
             headers: headers
         });
 
-        
-
         const dadosDoBanco = await res.json();
         console.log("Resposta do servidor Editar Depoimento:", dadosDoBanco);
+
         if (!res.ok) return { success: false };
+
         revalidatePath('/admin');
 
         return {
@@ -110,7 +109,7 @@ export async function DeletarDepoimento(id: number) {
         if (!res.ok) return { success: false };
 
         revalidatePath('/admin');
-        
+
         return { success: true };
 
     } catch (error) {
