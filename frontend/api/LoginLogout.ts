@@ -9,7 +9,7 @@ const urlBase = process.env.NEXT_PUBLIC_API_URL;
 export async function FazerLogin(formData: FormData) {
 
     try {
-         
+        
         const cookieStore = await cookies(); // Tem que ser declarada em cada função porque cada Server Action é um ambiente isolado, não compartilha variáveis nem estados entre si. Então não dá pra declarar o cookieStore lá no topo do arquivo e usar em todas as funções, tem que declarar dentro de cada função que precisa acessar os cookies.
         // 1. Envia os dados para o Laravel (POST /api/login)
         const res = await fetch(`${urlBase}/login`, {

@@ -26,7 +26,7 @@ export async function buscarLayout() {
         if (!res.ok) return { success: false };
 
         const dadosDoBanco = await res.json();
-        // console.log("Resposta do servidor", dadosDoBanco);
+        console.log("Resposta do servidor Buscar Layout:", dadosDoBanco);
 
         return {
             success: true,
@@ -51,7 +51,7 @@ export async function SalvarLayout(formData: FormData) {
         });
 
         const dadosDoBanco = await res.json();
-        // console.log("Resposta do servidor", dadosDoBanco);
+        console.log("Resposta do servidor Salvar Layout:", dadosDoBanco);
 
         revalidatePath('/admin');
 

@@ -27,7 +27,7 @@ export async function buscarDepoimentos() {
         if (!res.ok) return { success: false };
 
         const dadosDoBanco = await res.json();
-        // console.log("Resposta do servidor", dadosDoBanco);
+        console.log("Resposta do servidor Buscar Depoimentos:", dadosDoBanco);
 
         return {
             success: true,
@@ -54,7 +54,7 @@ export async function SalvarDepoimento(formData: FormData) {
         if (!res.ok) return { success: false };
 
         const dadosDoBanco = await res.json();
-        // console.log("Resposta do servidor", dadosDoBanco);
+        console.log("Resposta do servidor Salvar Depoimento:", dadosDoBanco);
 
         revalidatePath('/admin');
 
@@ -86,7 +86,7 @@ export async function EditarDepoimento(id: number, formData: FormData) {
         if (!res.ok) return { success: false };
 
         const dadosDoBanco = await res.json();
-        // console.log("Resposta do servidor", dadosDoBanco);
+        console.log("Resposta do servidor Editar Depoimento:", dadosDoBanco);
 
         revalidatePath('/admin');
 

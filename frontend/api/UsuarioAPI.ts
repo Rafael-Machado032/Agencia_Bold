@@ -27,8 +27,8 @@ export async function SalvarUsuario(formData: FormData) {
         });
 
         const dadosDoBanco = await res.json();
-        // console.log("Resposta do servidor", dadosDoBanco);
-        
+        console.log("Resposta do servidor Salvar Usuário:", dadosDoBanco);
+
         revalidatePath('/admin');
 
         return {
@@ -52,7 +52,7 @@ export async function buscarUsuario() {
         });
 
         const dadosDoBanco = await res.json();
-        // console.log("Resposta do servidor", dadosDoBanco);
+        console.log("Resposta do servidor Buscar Usuário:", dadosDoBanco);
 
         if (!res.ok) return { success: false };
         return {

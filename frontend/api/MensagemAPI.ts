@@ -24,7 +24,7 @@ export async function buscarMensagens() {
         });
 
         const dadosDoBanco = await res.json();
-        console.log("Resposta do servidor", dadosDoBanco);
+        console.log("Resposta do servidor Buscar Mensagens:", dadosDoBanco);
 
         if (!res.ok) return { success: false };
         return {
@@ -47,7 +47,7 @@ export async function EnviarMensagemContato(formData: FormData) {
         });
 
         const dadosDoBanco = await res.json();
-        console.log("Resposta do servidor", dadosDoBanco);
+        console.log("Resposta do servidor Enviar Mensagem:", dadosDoBanco);
 
         return {
             success: true,
@@ -71,7 +71,7 @@ export async function DeletarMensagem(id: number) {
         });
         
         const dadosDoBanco = await res.json();
-        console.log("Resposta do servidor", dadosDoBanco);
+        console.log("Resposta do servidor Deletar Mensagem:", dadosDoBanco);
 
         if (!res.ok) return { success: false };
 
@@ -93,7 +93,7 @@ export async function MarcarMensagemLida(id: number) {
             headers: headers
         });
         const dadosDoBanco = await res.json();
-        console.log("Resposta do servidor", dadosDoBanco);
+        console.log("Resposta do servidor Marcar Mensagem Lida:", dadosDoBanco);
 
         revalidatePath('/admin');
 
