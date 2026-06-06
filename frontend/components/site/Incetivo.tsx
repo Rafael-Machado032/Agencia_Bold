@@ -6,7 +6,7 @@ export default function Incetivo() {
             <div className='text-white text-center flex flex-col items-center gap-2'>
                 <h2 className='text-4xl'>Vamos Começar Seu Projeto?</h2>
                 <p>Fale agora mesmo com um de nossos consultores!</p>
-                <button className=" bg-yellow-300 text-blue-800 px-4 py-2 rounded-lg hover:bg-yellow-600 transition">Entra em Contato</button>
+                <a href="#contato" className=" bg-yellow-300 text-blue-800 px-4 py-2 rounded-lg hover:bg-yellow-600 transition">Entrar em Contato</a>
             </div>
         </section>
     )
