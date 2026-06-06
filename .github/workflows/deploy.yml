@@ -3,7 +3,8 @@ name: Deploy Laravel to Oracle VPS
 on:
     push:
         branches: [main]
-
+        paths:
+        - 'backend/**'
 jobs:
     deploy:
         runs-on: ubuntu-latest
