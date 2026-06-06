@@ -8,7 +8,7 @@ export default function Hero() {
     // DEBUG: Veja se isso imprime a URL correta no console do navegador (F12)
     console.log("URL que chegou no Hero:", layoutDados?.foto_layout);
     return (
-        <section className="bg-[url(/images/bg.svg)] bg-cover bg-no-repeat bg-center max-h-235  text-white">
+        <section className="bg-[url(/images/bg.svg)] bg-cover bg-no-repeat bg-center max-h-235  text-white" id="inicio">
             <div className='mx-auto w-full max-w-6xl pt-36 flex justify-center '>
                 <div className='flex flex-col aspect-4/3 gap-6 p-4 text-center'>
                     <h1 className="text-5xl">Promova experiências aos seus clientes</h1>

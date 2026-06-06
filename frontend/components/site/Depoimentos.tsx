@@ -91,7 +91,7 @@ export default function Depoimentos() {
     if (listaFinal.length === 0) return null; // Se não tiver depoimentos, não renderiza nada (pode ser substituído por um placeholder se desejar)
 
     return (
-        <section className='flex flex-col gap-9 w-full max-w-6xl mx-auto text-center p-4'>
+        <section className='flex flex-col gap-9 w-full max-w-6xl mx-auto text-center p-4' id="depoimentos">
             <h2 className="font-bold text-4xl">Depoimentos</h2>
 
             <div className='overflow-hidden'>{/* MOLDURA: Esconde o que está fora da área visível */}

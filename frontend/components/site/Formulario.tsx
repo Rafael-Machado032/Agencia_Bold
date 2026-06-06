@@ -17,7 +17,7 @@ export default function Formulario() {
 
 
     return (
-        <section className='flex flex-col gap-8 max-w-2xl mx-auto px-6 py-8 text-center'>
+        <section className='flex flex-col gap-8 max-w-2xl mx-auto px-6 py-8 text-center' id="contato">
             <h2 className='font-bold text-4xl'>Entre em Contato</h2>
             <form action={handleEnviar} ref={formRef} className='flex flex-col gap-4'>
                 <input type="text" name="nome" className='border border-[#C3CCE8] rounded-md p-2' placeholder='Seu Nome...' required />

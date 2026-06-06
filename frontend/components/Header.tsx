@@ -21,10 +21,10 @@ export function Header() {
 
                     {/* Links Desktop */}
                     <ul className="hidden lg:flex space-x-8">
-                        <li><Link href="#sobre" className="hover:text-blue-600 transition">Inicio</Link></li>
+                        <li><Link href="#inicio" className="hover:text-blue-600 transition">Inicio</Link></li>
                         <li><Link href="#servicos" className="hover:text-blue-600 transition">Por que nos?</Link></li>
-                        <li><Link href="#contato" className="hover:text-blue-600 transition">Depoimntos</Link></li>
-                        <li><Link href="#orcamento" className=" bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                        <li><Link href="#depoimentos" className="hover:text-blue-600 transition">Depoimentos</Link></li>
+                        <li><Link href="#contato" className=" bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
                             Entre em Contato
                         </Link></li>
                     </ul>

@@ -2,7 +2,7 @@ import NextImage from 'next/image';
 
 export default function Servicos() {
     return (
-        <section className='w-full max-w-7xl mx-auto flex flex-col gap-12 p-6 mt-50'>
+        <section className='w-full max-w-7xl mx-auto flex flex-col gap-12 p-6 mt-50' id="servicos">
             <div className='text-center'>
                 <h2 className='text-6xl font-bold'>Por Que Nós?</h2>
                 <p className='text-[#7E92AC]'>Uma experiência incrível para seus clientes, resultados espetaculares para sua empresa</p>
