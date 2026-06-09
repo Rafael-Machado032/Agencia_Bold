@@ -9,7 +9,7 @@
 ![Screenshot do Projeto](./site.png)
 * **Link da Landing Page:** [Visite o site](https://vercel.app)
 
-![Screenshot do Painel admin](./admin.png)
+![Screenshot do Painel admin](./admin.png )
 * **Painel Administrativo:** Acesse `/admin` após a URL do site (ex: `https://vercel.app/admin`).
 
 ### 🔐 Dados de Acesso para Teste (Admin):
