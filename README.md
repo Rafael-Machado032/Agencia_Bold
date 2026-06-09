@@ -1,64 +1,38 @@
-# 🚀 Agencia Bold
+# 🚀 Agência Bold - Full Stack Project
 
-> Esta landing page de alta conversão para a Agência Bold foi desenvolvida com Next.js, Tailwind CSS e TypeScript no frontend, conectada a uma API Laravel segura. O projeto oferece um painel administrativo completo que permite ao usuário alterar o layout da seção hero, gerenciar depoimentos, capturar leads e atualizar perfil.
-
----
-
-## 📷 Demonstração
-
-![Screenshot do Projeto](./image.png)
-*Link do projeto:* [Visite o site](https://agenciabold1.vercel.app)
+> Uma landing page institucional de alta conversão para a Agência Bold. O projeto possui um ecossistema completo com front-end desacoplado na Vercel e uma API em produção rodando em uma infraestrutura VPS dedicada. Inclui um painel administrativo customizável para gerenciar layouts, depoimentos e leads.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 📷 Demonstração & Acesso ao Painel
 
-### Front-end
-* **Next.js** — Framework React para produção.
-* **TypeScript** — Tipagem estática para maior segurança no código.
-* **Tailwind CSS** — Estilização rápida e responsiva baseada em classes utilitárias.
+* **Link da Landing Page:** [Visite o site](https://vercel.app)
+* **Painel Administrativo:** Acesse `/admin` após a URL do site (ex: `https://vercel.app/admin`).
+
+### 🔐 Dados de Acesso para Teste (Admin):
+* **E-mail:** `admin@admin.com`
+* **Senha:** `123456`
 
 ---
 
-## ✨ Funcionalidades Principais
+## 🏗️ Arquitetura do Projeto
 
-* 🔐 Autenticação segura de usuários no painel admin.
-* 📱 Design totalmente responsivo (mobile-first).
-* 🔄 Consumo de API RESTful em tempo real.
-* ⚙️ Conteudo dinâmico para cada função
+O projeto foi desenvolvido seguindo o modelo de arquitetura desacoplada (API-driven):
+
+* **`/frontend`**: Aplicação SPA desenvolvida com Next.js, React e TypeScript, hospedada globalmente na **Vercel**.
+* **`/backend`**: API RESTful desenvolvida em Laravel, hospedada em uma infraestrutura em nuvem **VPS (Oracle Cloud)**.
+
 ---
 
-## 🚀 Como Executar o Projeto
+## 🛠️ Stack Tecnológica
 
-### Pré-requisitos
-Você precisará ter instalado: Git, Node.js, PHP e Composer.
+* **Front-end:** Next.js (App Router), TypeScript, Tailwind CSS, JS-Cookie.
+* **Back-end:** PHP, Framework Laravel.
+* **Banco de Dados:** MySQL.
+* **Infraestrutura:** Oracle Cloud VPS, Ubuntu Server, Apache, DuckDNS (SSL Let's Encrypt).
 
-### 1. Clonar o repositório
-```bash
-git clone https://github.com/Rafael-Machado032/Back-End-Estudos.git
-cd Portifolio
-```
+---
 
-### 3. Configurar o Front-end (Next.js)
-Abra um novo terminal na raiz do projeto:
-```bash
-cd frontend
-npm install
-npm run dev
-```
+## 🧑‍💻 Autor
 
-## Leitura de cookies pelo lado do cliente teste
-
-1. Instalação do pacote
-```bash
-    npm install js-cookie
-    npm install --save-dev @types/js-cookie
-```
-2. importe a biblioteca
-```jsx
-    import Cookies from 'js-cookie';
-```
-Para leitura use o comando
-```jsx
-    const cookieVariavel = Cookies.get('campoDoCookie');
-```
+* **Rafael Machado** - [LinkedIn](https://linkedin.com) - [E-mail](mailto:rafael_machado032@yahoo.com.br)

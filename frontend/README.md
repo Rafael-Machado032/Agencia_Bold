@@ -1,64 +1,43 @@
-# 🚀 Agencia Bold
+# 🖥️ Agência Bold - Front-end (Next.js)
 
-> Desenvolvido com Next.js, React e Tailwind CSS para centralizar minhas criações e evolução técnica. Totalmente responsivo, otimizado para performance e integrado aos meus repositórios de código. Através dele, você tem acesso direto aos meus projetos em Laravel, Next.js e ao meu GitHub
+Esta é a aplicação de cliente da Agência Bold. Uma interface ultra performática com foco em SEO, integrada ao painel administrativo via requisições HTTPS seguras para evitar problemas de segurança no navegador.
 
----
+## ✨ Funcionalidades do Front-end
 
-## 📷 Demonstração
+* 🔐 Fluxo de autenticação client-side integrado à API.
+* 📱 Design totalmente responsivo baseado em Mobile-First.
+* 🔄 Consumo de API RESTful em tempo real para alteração dinâmica de dados e layouts.
+* 🚀 Roteamento protegido para a área administrativa (`/admin`).
 
-![Screenshot do Projeto](./public/image.png)
-*Link do projeto:* [Visite o site](https://agenciabold1.vercel.app)
+## 📦 Bibliotecas e Recursos Técnicos
 
----
+### 🍪 Gerenciamento de Cookies (Client-Side)
+Utilizado para ler e manipular tokens de autenticação diretamente pelo navegador.
+```bash
+npm install js-cookie
+npm install --save-dev @types/js-cookie
+```
+*Exemplo de uso:*
+```tsx
+import Cookies from 'js-cookie';
+const token = Cookies.get('campoDoCookie');
+```
 
-## 🛠️ Tecnologias Utilizadas
-
-### Front-end
-* **Next.js** — Framework React para produção.
-* **TypeScript** — Tipagem estática para maior segurança no código.
-* **Tailwind CSS** — Estilização rápida e responsiva baseada em classes utilitárias.
-
----
-
-## ✨ Funcionalidades Principais
-
-* 🔐 Autenticação segura de usuários no painel admin.
-* 📱 Design totalmente responsivo (mobile-first).
-* 🔄 Consumo de API RESTful em tempo real.
-* ⚙️ Conteudo dinâmico para cada função
----
-
-## 🚀 Como Executar o Projeto
+## ⚙️ Configuração Local
 
 ### Pré-requisitos
-Você precisará ter instalado: Git, Node.js, PHP e Composer.
+Você precisará do **Git** e **Node.js** instalados.
 
-### 1. Clonar o repositório
-```bash
-git clone https://github.com/Rafael-Machado032/Back-End-Estudos.git
-cd Portifolio
-```
-
-### 3. Configurar o Front-end (Next.js)
-Abra um novo terminal na raiz do projeto:
+1. Acesse a pasta do front-end:
 ```bash
 cd frontend
+```
+2. Crie um arquivo `.env.local` e aponte para a URL da sua VPS:
+```env
+NEXT_PUBLIC_API_URL=https://duckdns.org
+```
+3. Instale as dependências e rode o projeto:
+```bash
 npm install
 npm run dev
-```
-
-## Leitura de cookies pelo lado do cliente teste
-
-1. Instalação do pacote
-```bash
-    npm install js-cookie
-    npm install --save-dev @types/js-cookie
-```
-2. importe a biblioteca
-```jsx
-    import Cookies from 'js-cookie';
-```
-Para leitura use o comando
-```jsx
-    const cookieVariavel = Cookies.get('campoDoCookie');
 ```
