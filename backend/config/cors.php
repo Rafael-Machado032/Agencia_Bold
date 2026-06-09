@@ -21,7 +21,7 @@ return [
 
     'allowed_origins' => ['http://localhost:3000'],// URL padrão do Next.js
 
-    'allowed_origins_patterns' => [], 
+    'allowed_origins_patterns' => ['https://agenciaboldbackend.duckdns.org'], 
 
     'allowed_headers' => ['*'],
 
