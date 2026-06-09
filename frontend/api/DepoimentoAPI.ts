@@ -21,7 +21,7 @@ export async function buscarDepoimentos() {
         const res = await fetch(`${urlBase}/depoimentos`, {
             method: 'GET',
             headers: { 'Accept': 'application/json' },
-            cache: 'no-store' // Garante dado fresco do Laravel
+            next: { revalidate: 86400 } // Salva em cache por 24 horas (86400 segundos)
         });
 
         if (!res.ok) return { success: false };

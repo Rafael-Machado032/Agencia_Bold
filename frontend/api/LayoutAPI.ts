@@ -20,7 +20,7 @@ export async function buscarLayout() {
         const res = await fetch(`${urlBase}/layout/1`, { 
             method: 'GET',
             headers: { 'Accept': 'application/json' },
-            cache: 'no-store' // Garante dado fresco do Laravel
+            next: { revalidate: 86400 } // Salva em cache por 24 horas (86400 segundos)
         });
 
         if (!res.ok) return { success: false };

@@ -19,8 +19,8 @@ export async function buscarMensagens() {
         const headers = await getAuthHeaders(); // Pega o token
         const res = await fetch(`${urlBase}/mensagens`, {
             method: 'GET',
-            cache: 'no-store',
-            headers: headers // Envia os headers com o token
+            headers: headers, // Envia os headers com o token
+            next: { revalidate: 86400 } // Salva em cache por 24 horas (86400 segundos)
         });
 
         const dadosDoBanco = await res.json();
