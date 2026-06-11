@@ -107,7 +107,7 @@ export default function Depoimentos() {
             {isLoading ? (
                 <Loading />
             ) : (
-                    <div className='flex flex-col w-full max-h-128 sm:flex-row gap-6 px-4 mt-28'>
+                    <div className='flex flex-col w-full h-screen max-h-128 sm:flex-row gap-6 px-4 mt-28'>
                     <div className='sm:w-1/2 pr-6 border-r'>
                         <h2 className='text-xl font-bold text-center mb-4'>
                             {idEditando ? "Editando Depoimento" : "Cadastro de Depoimento"}
