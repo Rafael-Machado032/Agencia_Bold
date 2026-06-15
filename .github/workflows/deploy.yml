@@ -20,10 +20,19 @@ jobs:
                   script: |
                       cd /var/www/Agencia_Bold/backend
                       php artisan down
+                      
+                      # Limpa caches antigos antes de puxar o código novo
+                      php artisan config:clear
+                      php artisan route:clear
+                      php artisan view:clear
+                      
                       git pull origin main
                       composer install --no-interaction --prefer-dist --optimize-autoloader
                       php artisan migrate --force
+                      
+                      # Cria os novos caches com o código e .env atualizados
                       php artisan config:cache
                       php artisan route:cache
                       php artisan view:cache
+                      
                       php artisan up
